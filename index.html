@@ -6,42 +6,568 @@
 <title>LunaFlix</title>
 
 <style>
-body {
+
+/* ======================================================
+   LUNAFLIX
+   DIGITAL CINEMA INTERFACE
+   ====================================================== */
+
+html, body {
     margin: 0;
-    background: black;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
     color: #00ff66;
     font-family: Arial, sans-serif;
+}
+
+/* ======================================================
+   MATRIX BACKGROUND
+   ====================================================== */
+
+#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.18;
+}
+
+/* ======================================================
+   SCREEN SCAN LINE
+   ====================================================== */
+
+.screen-scan {
+    position: fixed;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 3px;
+
+    background: rgba(0, 255, 102, 0.18);
+
+    box-shadow:
+        0 0 12px rgba(0, 255, 102, 0.25);
+
+    z-index: 2;
+
+    animation: screenScan 7s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes screenScan {
+
+    0% {
+        top: -10%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+
+}
+
+/* ======================================================
+   MAIN CONTENT
+   ====================================================== */
+
+.container {
+    position: relative;
+    z-index: 3;
+
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding-top: 35px;
+
     text-align: center;
 }
 
-h1 {
-    margin-top: 80px;
-    font-size: 60px;
-    letter-spacing: 8px;
+/* ======================================================
+   LUNAFLIX LOGO
+   ====================================================== */
+
+.logo-container {
+    position: relative;
+
+    display: inline-block;
+
+    overflow: hidden;
+
+    margin-bottom: 5px;
 }
 
-p {
-    font-size: 24px;
+h1 {
+
+    margin: 0;
+
+    font-size: clamp(42px, 7vw, 72px);
+
+    letter-spacing: 12px;
+
+    color: #00ff66;
+
+    text-shadow:
+        0 0 5px #00ff66,
+        0 0 15px rgba(0, 255, 102, 0.7),
+        0 0 30px rgba(0, 255, 102, 0.35);
+
+    animation: logoAppear 2.2s ease-out forwards;
+
 }
+
+/* Digital scanning line across logo */
+
+.logo-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: -10px;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: #00ff66;
+
+    box-shadow:
+        0 0 8px #00ff66,
+        0 0 18px #00ff66;
+
+    animation: logoScan 2.2s ease-out forwards;
+
+}
+
+@keyframes logoAppear {
+
+    0% {
+        opacity: 0;
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(8px);
+    }
+
+    40% {
+        opacity: 0.35;
+    }
+
+    70% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 1;
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes logoScan {
+
+    0% {
+        top: -10px;
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 110%;
+        opacity: 0;
+    }
+
+}
+
+/* ======================================================
+   SUBTITLE
+   ====================================================== */
+
+.subtitle {
+
+    font-size: 18px;
+
+    letter-spacing: 5px;
+
+    margin-top: 5px;
+
+    margin-bottom: 35px;
+
+    opacity: 0;
+
+    animation: fadeIn 1.5s ease-out 1.4s forwards;
+
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.85;
+    }
+
+}
+
+/* ======================================================
+   MENU
+   ====================================================== */
+
+.menu {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    gap: 22px;
+
+    width: 90%;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+}
+
+/* ======================================================
+   BUTTONS
+   ====================================================== */
 
 button {
-    background: black;
+
+    position: relative;
+
+    overflow: hidden;
+
+    width: 70%;
+
+    max-width: 500px;
+
+    margin: auto;
+
+    padding: 18px;
+
+    background: rgba(0, 0, 0, 0.75);
+
     color: #00ff66;
+
     border: 2px solid #00ff66;
-    padding: 18px 45px;
-    font-size: 24px;
+
+    font-size: 26px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s,
+        color 0.25s,
+        box-shadow 0.25s,
+        transform 0.25s;
+
 }
+
+/* Button scan line */
+
+button::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: -10px;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: #00ff66;
+
+    box-shadow:
+        0 0 8px #00ff66;
+
+    opacity: 0;
+
+}
+
+/* Hover effect */
+
+button:hover {
+
+    background: rgba(0, 255, 102, 0.12);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 0 8px rgba(0, 255, 102, 0.5),
+        0 0 20px rgba(0, 255, 102, 0.2);
+
+    transform: scale(1.02);
+
+}
+
+button:hover::before {
+
+    opacity: 1;
+
+    animation: buttonScan 1.2s linear infinite;
+
+}
+
+@keyframes buttonScan {
+
+    0% {
+        top: -5px;
+    }
+
+    100% {
+        top: 105%;
+    }
+
+}
+
+/* ======================================================
+   FOOTER
+   ====================================================== */
+
+.footer {
+
+    margin-top: 35px;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+    opacity: 0;
+
+    animation: fadeIn 1.5s ease-out 2s forwards;
+
+}
+
+/* ======================================================
+   SMALL SCREENS
+   ====================================================== */
+
+@media (max-width: 700px) {
+
+    .menu {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+    button {
+
+        width: 85%;
+
+        font-size: 20px;
+
+    }
+
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h1>LUNAFLIX</h1>
+<!-- Matrix background -->
 
-<p>MENU TEST</p>
+<canvas id="matrix"></canvas>
 
-<button>TEST</button>
+<!-- Slow screen scan -->
+
+<div class="screen-scan"></div>
+
+
+<div class="container">
+
+    <!-- LunaFlix logo -->
+
+    <div class="logo-container">
+
+        <h1>LUNAFLIX</h1>
+
+    </div>
+
+
+    <div class="subtitle">
+
+        SELECT YOUR ENTERTAINMENT
+
+    </div>
+
+
+    <!-- Main menu -->
+
+    <div class="menu">
+
+        <button>FAMILY</button>
+
+        <button>SCI-FI</button>
+
+        <button>ACTION</button>
+
+        <button>OTHER</button>
+
+        <button>COMEDY</button>
+
+        <button>HORROR</button>
+
+    </div>
+
+
+    <div class="footer">
+
+        LUNAFLIX SYSTEM ONLINE
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ======================================================
+   MATRIX DIGITAL RAIN
+   ====================================================== */
+
+const canvas = document.getElementById("matrix");
+
+const ctx = canvas.getContext("2d");
+
+let width;
+let height;
+let columns;
+let drops;
+
+const characters =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%";
+
+
+function setupMatrix() {
+
+    width = canvas.width = window.innerWidth;
+
+    height = canvas.height = window.innerHeight;
+
+    const fontSize = 16;
+
+    columns = Math.floor(width / fontSize);
+
+    drops = [];
+
+    for (let i = 0; i < columns; i++) {
+
+        drops[i] =
+            Math.random() *
+            (height / fontSize);
+
+    }
+
+}
+
+
+function drawMatrix() {
+
+    const fontSize = 16;
+
+    ctx.fillStyle =
+        "rgba(0, 0, 0, 0.08)";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    ctx.fillStyle =
+        "#00ff66";
+
+    ctx.font =
+        fontSize + "px monospace";
+
+
+    for (let i = 0; i < drops.length; i++) {
+
+        const character =
+            characters.charAt(
+                Math.floor(
+                    Math.random() *
+                    characters.length
+                )
+            );
+
+        ctx.fillText(
+            character,
+            i * fontSize,
+            drops[i] * fontSize
+        );
+
+
+        if (
+            drops[i] * fontSize >
+            height &&
+            Math.random() > 0.975
+        ) {
+
+            drops[i] = 0;
+
+        }
+
+        drops[i]++;
+
+    }
+
+}
+
+
+setupMatrix();
+
+setInterval(
+    drawMatrix,
+    55
+);
+
+
+window.addEventListener(
+    "resize",
+    setupMatrix
+);
+
+</script>
 
 </body>
 </html>
