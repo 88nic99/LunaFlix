@@ -435,7 +435,7 @@ button:hover::before {
 
         <button>FAMILY</button>
 
-        <button>SCI-FI</button>
+        <button onclick="showSciFi()">SCI-FI</button>
 
         <button>ACTION</button>
 
@@ -566,6 +566,40 @@ window.addEventListener(
     "resize",
     setupMatrix
 );
+
+function showSciFi()
+{
+    document.querySelector(".menu").innerHTML = `
+    
+        <button onclick="playStarTest()">
+            STAR TEST
+        </button>
+
+        <button>
+            SPACE TEST
+        </button>
+
+        <button onclick="showMainMenu()">
+            BACK
+        </button>
+
+    `;
+
+    document.querySelector(".subtitle").innerText =
+        "SCI-FI";
+}
+
+
+function showMainMenu()
+{
+    location.reload();
+}
+
+
+function playStarTest()
+{
+    console.log("LunaFlix TV: PLAY Star Test");
+}
 
 </script>
 
