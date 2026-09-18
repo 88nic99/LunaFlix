@@ -460,6 +460,50 @@ button:hover::before {
 <script>
 
 /* ======================================================
+   LUNAFLIX TV CONNECTION
+   ====================================================== */
+
+const params =
+    new URLSearchParams(window.location.search);
+
+const tvURL =
+    params.get("tvurl");
+
+console.log(
+    "LunaFlix TV URL:",
+    tvURL
+);
+
+
+function sendTVCommand(command)
+{
+    if (!tvURL)
+    {
+        console.log("LunaFlix: No TV URL received.");
+        return;
+    }
+
+    fetch(
+        tvURL + "?cmd=" + encodeURIComponent(command)
+    )
+    .then(response => response.text())
+    .then(data =>
+    {
+        console.log(
+            "LunaFlix TV replied:",
+            data
+        );
+    })
+    .catch(error =>
+    {
+        console.log(
+            "LunaFlix TV command error:",
+            error
+        );
+    });
+}
+
+/* ======================================================
    MATRIX DIGITAL RAIN
    ====================================================== */
 
@@ -598,7 +642,9 @@ function showMainMenu()
 
 function playStarTest()
 {
-    console.log("LunaFlix TV: PLAY Star Test");
+    console.log("LunaFlix TV: TEST command");
+
+    sendTVCommand("test");
 }
 
 </script>
