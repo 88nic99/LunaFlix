@@ -433,7 +433,7 @@ button:hover::before {
 
     <div class="menu">
 
-        <button>FAMILY</button>
+        <button onclick="showFamily()">FAMILY</button>
 
         <button onclick="showSciFi()">SCI-FI</button>
 
@@ -610,6 +610,24 @@ window.addEventListener(
     "resize",
     setupMatrix
 );
+
+function showFamily()
+{
+    document.querySelector(".menu").innerHTML = `
+    
+        <button onclick="playMovie('Family Test')">
+            FAMILY TEST
+        </button>
+
+        <button onclick="showMainMenu()">
+            BACK
+        </button>
+
+    `;
+
+    document.querySelector(".subtitle").innerText =
+        "FAMILY";
+}
 
   function showSciFi()
 {
