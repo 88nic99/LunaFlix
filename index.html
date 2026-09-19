@@ -619,7 +619,7 @@ function showSciFi()
             STAR TEST
         </button>
 
-        <button>
+        <button onclick="playSpaceTest()">
             SPACE TEST
         </button>
 
@@ -645,6 +645,13 @@ function playStarTest()
     console.log("LunaFlix TV: PLAY Star Test");
 
     sendTVCommand("star");
+}
+
+function playSpaceTest()
+{
+    console.log("LunaFlix TV: PLAY Space Test");
+
+    sendTVCommand("space");
 }
 
 </script>
