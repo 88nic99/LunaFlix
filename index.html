@@ -660,9 +660,32 @@ function playMovie(movieName)
         "LunaFlix TV: PLAY " + movieName
     );
 
-    sendTVCommand(
-        "play&movie=" + encodeURIComponent(movieName)
-    );
+    if (!tvURL)
+    {
+        console.log("LunaFlix: No TV URL received.");
+        return;
+    }
+
+    fetch(
+        tvURL
+        + "?cmd=play&movie="
+        + encodeURIComponent(movieName)
+    )
+    .then(response => response.text())
+    .then(data =>
+    {
+        console.log(
+            "LunaFlix TV replied:",
+            data
+        );
+    })
+    .catch(error =>
+    {
+        console.log(
+            "LunaFlix TV command error:",
+            error
+        );
+    });
 }
 
 </script>
