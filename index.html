@@ -615,13 +615,13 @@ function showSciFi()
 {
     document.querySelector(".menu").innerHTML = `
     
-        <button onclick="playStarTest()">
-            STAR TEST
-        </button>
+        <button onclick="playMovie('Star Test')">
+             STAR TEST
+           </button>
 
-        <button onclick="playSpaceTest()">
-            SPACE TEST
-        </button>
+        <button onclick="playMovie('Space Test')">
+             SPACE TEST
+           </button>
 
         <button onclick="showMainMenu()">
             BACK
@@ -652,6 +652,17 @@ function playSpaceTest()
     console.log("LunaFlix TV: PLAY Space Test");
 
     sendTVCommand("space");
+}
+
+function playMovie(movieName)
+{
+    console.log(
+        "LunaFlix TV: PLAY " + movieName
+    );
+
+    sendTVCommand(
+        "play&movie=" + encodeURIComponent(movieName)
+    );
 }
 
 </script>
