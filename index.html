@@ -437,7 +437,7 @@ button:hover::before {
 
         <button onclick="showSciFi()">SCI-FI</button>
 
-        <button>ACTION</button>
+        <button onclick="showAction()">ACTION</button>
 
         <button>OTHER</button>
 
@@ -613,6 +613,24 @@ window.addEventListener(
 
 function showSciFi()
 {
+function showAction()
+{
+    document.querySelector(".menu").innerHTML = `
+    
+        <button onclick="playMovie('Action Test')">
+            ACTION TEST
+        </button>
+
+        <button onclick="showMainMenu()">
+            BACK
+        </button>
+
+    `;
+
+    document.querySelector(".subtitle").innerText =
+        "ACTION";
+}
+
     document.querySelector(".menu").innerHTML = `
     
         <button onclick="playMovie('Star Test')">
