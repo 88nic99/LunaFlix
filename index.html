@@ -441,7 +441,7 @@ button:hover::before {
 
         <button>OTHER</button>
 
-        <button>COMEDY</button>
+        <button onclick="showComedy()">COMEDY</button>
 
         <button onclick="showHorror()">HORROR</button>
 
@@ -668,6 +668,24 @@ function showAction()
 
     document.querySelector(".subtitle").innerText =
         "ACTION";
+}
+
+function showComedy()
+{
+    document.querySelector(".menu").innerHTML = `
+    
+        <button onclick="playMovie('Comedy Test')">
+            COMEDY TEST
+        </button>
+
+        <button onclick="showMainMenu()">
+            BACK
+        </button>
+
+    `;
+
+    document.querySelector(".subtitle").innerText =
+        "COMEDY";
 }
 
 function showHorror()
