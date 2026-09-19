@@ -611,8 +611,29 @@ window.addEventListener(
     setupMatrix
 );
 
-function showSciFi()
+  function showSciFi()
 {
+    document.querySelector(".menu").innerHTML = `
+    
+        <button onclick="playMovie('Star Test')">
+            STAR TEST
+        </button>
+
+        <button onclick="playMovie('Space Test')">
+            SPACE TEST
+        </button>
+
+        <button onclick="showMainMenu()">
+            BACK
+        </button>
+
+    `;
+
+    document.querySelector(".subtitle").innerText =
+        "SCI-FI";
+}
+
+
 function showAction()
 {
     document.querySelector(".menu").innerHTML = `
@@ -629,26 +650,6 @@ function showAction()
 
     document.querySelector(".subtitle").innerText =
         "ACTION";
-}
-
-    document.querySelector(".menu").innerHTML = `
-    
-        <button onclick="playMovie('Star Test')">
-             STAR TEST
-           </button>
-
-        <button onclick="playMovie('Space Test')">
-             SPACE TEST
-           </button>
-
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-
-    `;
-
-    document.querySelector(".subtitle").innerText =
-        "SCI-FI";
 }
 
 
