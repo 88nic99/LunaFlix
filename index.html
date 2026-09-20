@@ -468,7 +468,7 @@ const params =
 
 const tvURL =
     params.get("tvurl");
-
+let lunaCatalogue = "";
 function requestCatalogue()
 {
     if (!tvURL)
@@ -521,13 +521,17 @@ function sendTVCommand(command)
         tvURL + "?cmd=" + encodeURIComponent(command)
     )
     .then(response => response.text())
+    
     .then(data =>
-    {
-        console.log(
-            "LunaFlix TV replied:",
-            data
-        );
-    })
+{
+    console.log(
+        "LunaFlix catalogue reply:",
+        data
+    );
+
+    lunaCatalogue = data;
+})
+
     .catch(error =>
     {
         console.log(
