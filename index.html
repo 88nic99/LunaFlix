@@ -488,20 +488,19 @@ function requestCatalogue()
     )
     .then(response => response.text())
     .then(data =>
-    {
-        console.log(
-            "LunaFlix catalogue reply:",
-            data
-        );
-    })
-    .catch(error =>
-    {
-        console.log(
-            "LunaFlix catalogue error:",
-            error
-        );
-    });
-}
+{
+    console.log(
+        "LunaFlix catalogue reply:",
+        data
+    );
+
+    lunaCatalogue = data;
+
+    console.log(
+        "LunaFlix STORED catalogue:",
+        lunaCatalogue
+    );
+})
 
 console.log(
     "LunaFlix TV URL:",
