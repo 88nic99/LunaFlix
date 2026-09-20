@@ -815,17 +815,32 @@ function showComedy()
 
 function showHorror()
 {
-    document.querySelector(".menu").innerHTML = `
-    
-        <button onclick="playMovie('Horror Test')">
-            HORROR TEST
-        </button>
+    let movies = lunaCatalogue
+        .split("\n")
+        .filter(line => line.startsWith("HORROR|"));
 
+    let buttons = "";
+
+    movies.forEach(line =>
+    {
+        let parts = line.split("|");
+        let movieName = parts[1];
+
+        buttons += `
+            <button onclick="playMovie('${movieName}')">
+                ${movieName.toUpperCase()}
+            </button>
+        `;
+    });
+
+    buttons += `
         <button onclick="showMainMenu()">
             BACK
         </button>
-
     `;
+
+    document.querySelector(".menu").innerHTML =
+        buttons;
 
     document.querySelector(".subtitle").innerText =
         "HORROR";
