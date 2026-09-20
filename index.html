@@ -469,6 +469,40 @@ const params =
 const tvURL =
     params.get("tvurl");
 
+function requestCatalogue()
+{
+    if (!tvURL)
+    {
+        console.log(
+            "LunaFlix: No TV URL received."
+        );
+        return;
+    }
+
+    console.log(
+        "LunaFlix: Requesting catalogue from TV."
+    );
+
+    fetch(
+        tvURL + "?cmd=catalogue"
+    )
+    .then(response => response.text())
+    .then(data =>
+    {
+        console.log(
+            "LunaFlix catalogue reply:",
+            data
+        );
+    })
+    .catch(error =>
+    {
+        console.log(
+            "LunaFlix catalogue error:",
+            error
+        );
+    });
+}
+
 console.log(
     "LunaFlix TV URL:",
     tvURL
@@ -765,6 +799,8 @@ function playMovie(movieName)
         );
     });
 }
+
+requestCatalogue();
 
 </script>
 
