@@ -675,209 +675,120 @@ window.addEventListener(
 
 function showFamily()
 {
-    let movies = lunaCatalogue
-        .split("\n")
-        .filter(line => line.startsWith("FAMILY|"));
-
-    let buttons = "";
-
-    movies.forEach(line =>
-    {
-        let parts = line.split("|");
-        let movieName = parts[1];
-
-        buttons += `
-            <button onclick="playMovie('${movieName}')">
-                ${movieName.toUpperCase()}
-            </button>
-        `;
-    });
-
-    buttons += `
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-    `;
-
-    document.querySelector(".menu").innerHTML =
-        buttons;
-
-    document.querySelector(".subtitle").innerText =
-        "FAMILY";
+    showCategory("FAMILY");
 }
 
-  function showSciFi()
+function showSciFi()
+{
+    showCategory("SCI-FI");
+}
+
+ 
+const MOVIES_PER_PAGE = 6;
+
+function showCategory(category, page = 0)
 {
     let movies = lunaCatalogue
         .split("\n")
-        .filter(line => line.startsWith("SCI-FI|"));
+        .filter(line => line.startsWith(category + "|"));
+
+    let start = page * MOVIES_PER_PAGE;
+    let end = start + MOVIES_PER_PAGE;
+
+    let pageMovies = movies.slice(start, end);
 
     let buttons = "";
 
-    movies.forEach(line =>
+    pageMovies.forEach(line =>
     {
         let parts = line.split("|");
         let movieName = parts[1];
 
         buttons += `
-            <button onclick="playMovie('${movieName}')">
+            <button onclick='playMovie(${JSON.stringify(movieName)})'>
                 ${movieName.toUpperCase()}
             </button>
         `;
     });
 
+    // Previous page
+    if (page > 0)
+    {
+        buttons += `
+            <button onclick="showCategory('${category}', ${page - 1})">
+                ◀ PREV
+            </button>
+        `;
+    }
+    else
+    {
+        buttons += `
+            <button style="visibility:hidden">
+                ◀ PREV
+            </button>
+        `;
+    }
+
+    // Return to main category menu
     buttons += `
         <button onclick="showMainMenu()">
-            BACK
+            MENU
         </button>
     `;
+
+    // Next page
+    if (end < movies.length)
+    {
+        buttons += `
+            <button onclick="showCategory('${category}', ${page + 1})">
+                NEXT ▶
+            </button>
+        `;
+    }
+    else
+    {
+        buttons += `
+            <button style="visibility:hidden">
+                NEXT ▶
+            </button>
+        `;
+    }
 
     document.querySelector(".menu").innerHTML =
         buttons;
 
+    let totalPages =
+        Math.max(1, Math.ceil(movies.length / MOVIES_PER_PAGE));
+
     document.querySelector(".subtitle").innerText =
-        "SCI-FI";
+        category + "  •  PAGE " + (page + 1) + " / " + totalPages;
 }
 
 function showAction()
 {
-    let movies = lunaCatalogue
-        .split("\n")
-        .filter(line => line.startsWith("ACTION|"));
-
-    let buttons = "";
-
-    movies.forEach(line =>
-    {
-        let parts = line.split("|");
-        let movieName = parts[1];
-
-        buttons += `
-            <button onclick="playMovie('${movieName}')">
-                ${movieName.toUpperCase()}
-            </button>
-        `;
-    });
-
-    buttons += `
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-    `;
-
-    document.querySelector(".menu").innerHTML =
-        buttons;
-
-    document.querySelector(".subtitle").innerText =
-        "ACTION";
+    showCategory("ACTION");
 }
-
 
 function showOther()
 {
-    let movies = lunaCatalogue
-        .split("\n")
-        .filter(line => line.startsWith("OTHER|"));
-
-    let buttons = "";
-
-    movies.forEach(line =>
-    {
-        let parts = line.split("|");
-        let movieName = parts[1];
-
-        buttons += `
-            <button onclick="playMovie('${movieName}')">
-                ${movieName.toUpperCase()}
-            </button>
-        `;
-    });
-
-    buttons += `
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-    `;
-
-    document.querySelector(".menu").innerHTML =
-        buttons;
-
-    document.querySelector(".subtitle").innerText =
-        "OTHER";
+    showCategory("OTHER");
 }
 
 function showComedy()
 {
-    let movies = lunaCatalogue
-        .split("\n")
-        .filter(line => line.startsWith("COMEDY|"));
-
-    let buttons = "";
-
-    movies.forEach(line =>
-    {
-        let parts = line.split("|");
-        let movieName = parts[1];
-
-        buttons += `
-            <button onclick="playMovie('${movieName}')">
-                ${movieName.toUpperCase()}
-            </button>
-        `;
-    });
-
-    buttons += `
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-    `;
-
-    document.querySelector(".menu").innerHTML =
-        buttons;
-
-    document.querySelector(".subtitle").innerText =
-        "COMEDY";
+    showCategory("COMEDY");
 }
 
-function showHorror()
-{
-    let movies = lunaCatalogue
-        .split("\n")
-        .filter(line => line.startsWith("HORROR|"));
-
-    let buttons = "";
-
-    movies.forEach(line =>
-    {
-        let parts = line.split("|");
-        let movieName = parts[1];
-
-        buttons += `
-            <button onclick="playMovie('${movieName}')">
-                ${movieName.toUpperCase()}
-            </button>
-        `;
-    });
-
-    buttons += `
-        <button onclick="showMainMenu()">
-            BACK
-        </button>
-    `;
-
-    document.querySelector(".menu").innerHTML =
-        buttons;
-
-    document.querySelector(".subtitle").innerText =
-        "HORROR";
-}
 
 function showMainMenu()
 {
     location.reload();
 }
 
-
+function showHorror()
+{
+    showCategory("HORROR");
+}
 
 
 function playMovie(movieName)
